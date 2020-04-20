@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Models;
+using PublicChargingService.Service.PriceAndTaxService;
+using System;
+using System.Threading.Tasks;
 
 namespace PublicChargingService.Controllers
 {
@@ -9,37 +12,33 @@ namespace PublicChargingService.Controllers
     public class ChargingController : ControllerBase
     {
         private readonly ILogger<ChargingController> _logger;
+        private readonly IPriceAndTaxService _priceAndTaxService;
 
-        public ChargingController(ILogger<ChargingController> logger)
+        public ChargingController(ILogger<ChargingController> logger, IPriceAndTaxService priceAndTaxService)
         {
             _logger = logger;
+            _priceAndTaxService = priceAndTaxService;
         }
 
         [HttpGet]
         [Route("heat")]
-        public PriceAndTaxes getHeat()
+        public async Task<PriceAndTax> getHeat()
         {
-            PriceAndTaxes pt = new PriceAndTaxes();
-            pt.Currency = "Dkk";
-            pt.Price = 222.34;
-            pt.Tax = 0.45;
-            pt.UnitOfMeassure = "kWh";
-
-            return pt;
+            return await _priceAndTaxService.GetPriceAndTax(DateTime.Now, "heat");
         }
 
         [HttpGet]
         [Route("water")]
-        public PriceAndTaxes getWater()
+        public async Task<PriceAndTax> getWater()
         {
-            return null;
+            return await _priceAndTaxService.GetPriceAndTax(DateTime.Now, "water");
         }
 
         [HttpGet]
         [Route("electricity")]
-        public PriceAndTaxes getElectricity()
+        public async Task<PriceAndTax> getElectricity()
         {
-            return null;
+            return await _priceAndTaxService.GetPriceAndTax(DateTime.Now, "electricity");
         }
     }
 }

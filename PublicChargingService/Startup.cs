@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using PublicChargingService.Data;
+using PublicChargingService.Service.PriceAndTaxService;
+using Microsoft.OpenApi.Models;
 
 namespace PublicChargingService
 {
@@ -18,6 +15,7 @@ namespace PublicChargingService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            new PriceUpdater()
         }
 
         public IConfiguration Configuration { get; }
@@ -26,6 +24,13 @@ namespace PublicChargingService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<PriceAndTaxDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("??")));
+            services.AddScoped<IPriceAndTaxService, PriceAndTaxService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PublicChargingService API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +40,14 @@ namespace PublicChargingService
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "PublicChargingService API V1");
+            });
+
 
             app.UseHttpsRedirection();
 
