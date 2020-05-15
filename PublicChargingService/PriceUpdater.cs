@@ -70,7 +70,7 @@ namespace PublicChargingService
                     TimeStamp = DateTime.Now
                 });
                 Console.WriteLine("WATER - Pricing Added");
-                Thread.Sleep(_heatUpdateFrequenzyMinutes * 60 * 1000);
+                Thread.Sleep(_waterUpdateFrequenzyMinutes * 60 * 1000);
             }
         }
 
@@ -89,7 +89,7 @@ namespace PublicChargingService
                     TimeStamp = DateTime.Now
                 });
                 Console.WriteLine("ELECTRICITY - Pricing Added");
-                Thread.Sleep(_heatUpdateFrequenzyMinutes * 60 * 1000);
+                Thread.Sleep(_electricityUpdateFrequenzyMinutes * 60 * 1000);
             }
         }
     }

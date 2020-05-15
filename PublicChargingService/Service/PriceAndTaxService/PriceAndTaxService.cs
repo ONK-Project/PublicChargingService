@@ -2,8 +2,6 @@
 using Microsoft.Extensions.Configuration;
 using PublicChargingService.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -28,9 +26,9 @@ namespace PublicChargingService.Service.PriceAndTaxService
         {
             using (var context = new PriceAndTaxDbContext(_options))
             {
-                var craftsMan = await context.PriceAndTaxes.FirstAsync(pnt => pnt.TimeStamp <= timestamp && pnt.Type == type);
+                var princeAndTax = await context.PriceAndTaxes.FirstAsync(pnt => pnt.TimeStamp <= timestamp && pnt.Type == type);
 
-                return craftsMan;
+                return princeAndTax;
             }
         }
 

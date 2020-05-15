@@ -12,10 +12,12 @@ namespace PublicChargingService
 {
     public class Startup
     {
+        private PriceUpdater priceUpdater;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            new PriceUpdater()
+            priceUpdater = new PriceUpdater(new PriceAndTaxService(configuration), 45, 45, 45);
         }
 
         public IConfiguration Configuration { get; }
