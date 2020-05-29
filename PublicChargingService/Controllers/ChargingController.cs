@@ -23,27 +23,27 @@ namespace PublicChargingService.Controllers
         }
 
         [HttpGet]
-        [Route("heat/{timeStamp}")]
-        public async Task<PriceAndTaxes> getHeat(DateTime timeStamp)
+        [Route("heat")]
+        public async Task<PriceAndTaxes> getHeat([FromQuery]DateTime dateTime)
         {
-            Console.WriteLine(DateTime.Now.ToString() + " - Get Heat Price And Tax Called with timeStamp: " + timeStamp.ToString());
-            return await _priceAndTaxService.GetPriceAndTax(timeStamp, "heat");
+            Console.WriteLine(DateTime.Now.ToString() + " - Get Heat Price And Tax Called with timeStamp: " + dateTime.ToString());
+            return await _priceAndTaxService.GetPriceAndTax(dateTime, "heat");
         }
 
         [HttpGet]
-        [Route("water/{timeStamp}")]
-        public async Task<PriceAndTaxes> getWater(DateTime timeStamp)
+        [Route("water")]
+        public async Task<PriceAndTaxes> getWater([FromQuery]DateTime dateTime)
         {
-            Console.WriteLine(DateTime.Now.ToString() + " - Get Water Price And Tax Called with timeStamp: " + timeStamp.ToString());
-            return await _priceAndTaxService.GetPriceAndTax(timeStamp, "water");
+            Console.WriteLine(DateTime.Now.ToString() + " - Get Water Price And Tax Called with timeStamp: " + dateTime.ToString());
+            return await _priceAndTaxService.GetPriceAndTax(dateTime, "water");
         }
 
         [HttpGet]
-        [Route("electricity/{timeStamp}")]
-        public async Task<PriceAndTaxes> getElectricity(DateTime timeStamp)
+        [Route("electricity")]
+        public async Task<PriceAndTaxes> getElectricity([FromQuery]DateTime dateTime)
         {
-            Console.WriteLine(DateTime.Now.ToString() + " - Get Electricity Price And Tax Called with timeStamp: " + timeStamp.ToString());
-            return await _priceAndTaxService.GetPriceAndTax(timeStamp, "electricity");
+            Console.WriteLine(DateTime.Now.ToString() + " - Get Electricity Price And Tax Called with timeStamp: " + dateTime.ToString());
+            return await _priceAndTaxService.GetPriceAndTax(dateTime, "electricity");
         }
     }
 }
