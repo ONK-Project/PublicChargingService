@@ -18,5 +18,15 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Models">
+      <HintPath>Models\Models.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 
 </Project>

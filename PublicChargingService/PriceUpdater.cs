@@ -41,7 +41,7 @@ namespace PublicChargingService
             Random rand = new Random();
             while (true)
             {
-                _priceAndTaxService.SavePriceAndTax(new PriceAndTax
+                _priceAndTaxService.SavePriceAndTax(new PriceAndTaxes
                 {
                     Type = "heat",
                     Price = (rand.NextDouble()*500),
@@ -60,7 +60,7 @@ namespace PublicChargingService
             Random rand = new Random();
             while (true)
             {
-                _priceAndTaxService.SavePriceAndTax(new PriceAndTax
+                _priceAndTaxService.SavePriceAndTax(new PriceAndTaxes
                 {
                     Type = "water",
                     Price = (rand.NextDouble() * 500),
@@ -79,7 +79,7 @@ namespace PublicChargingService
             Random rand = new Random();
             while (true)
             {
-                _priceAndTaxService.SavePriceAndTax(new PriceAndTax
+                _priceAndTaxService.SavePriceAndTax(new PriceAndTaxes
                 {
                     Type = "electricity",
                     Price = (rand.NextDouble() * 500),

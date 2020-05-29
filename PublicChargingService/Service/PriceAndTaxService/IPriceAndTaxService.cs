@@ -8,8 +8,8 @@ namespace PublicChargingService.Service.PriceAndTaxService
 {
     public interface IPriceAndTaxService
     {
-        Task<PriceAndTax> GetPriceAndTax(DateTime timestamp, string type);
-        Task SavePriceAndTax(PriceAndTax priceAndTax);
+        Task<PriceAndTaxes> GetPriceAndTax(DateTime timestamp, string type);
+        Task SavePriceAndTax(PriceAndTaxes priceAndTax);
         bool CreateDB();
     }
 }

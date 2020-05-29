@@ -17,7 +17,7 @@ namespace PublicChargingService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            priceUpdater = new PriceUpdater(new PriceAndTaxService(configuration), 45, 45, 45);
+            priceUpdater = new PriceUpdater(new PriceAndTaxService(configuration), 720, 720, 720);
         }
 
         public IConfiguration Configuration { get; }
@@ -26,7 +26,7 @@ namespace PublicChargingService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<PriceAndTaxDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("??")));
+            services.AddDbContext<PriceAndTaxDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("F20ITONKASPNETServiceConnection")));
             services.AddScoped<IPriceAndTaxService, PriceAndTaxService>();
 
             services.AddSwaggerGen(c =>

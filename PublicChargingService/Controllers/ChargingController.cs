@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Models;
 using PublicChargingService.Service.PriceAndTaxService;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PublicChargingService.Controllers
@@ -18,27 +19,31 @@ namespace PublicChargingService.Controllers
         {
             _logger = logger;
             _priceAndTaxService = priceAndTaxService;
+            _priceAndTaxService.CreateDB();
         }
 
         [HttpGet]
-        [Route("heat")]
-        public async Task<PriceAndTax> getHeat()
+        [Route("heat/{timeStamp}")]
+        public async Task<PriceAndTaxes> getHeat(DateTime timeStamp)
         {
-            return await _priceAndTaxService.GetPriceAndTax(DateTime.Now, "heat");
+            Console.WriteLine(DateTime.Now.ToString() + " - Get Heat Price And Tax Called with timeStamp: " + timeStamp.ToString());
+            return await _priceAndTaxService.GetPriceAndTax(timeStamp, "heat");
         }
 
         [HttpGet]
-        [Route("water")]
-        public async Task<PriceAndTax> getWater()
+        [Route("water/{timeStamp}")]
+        public async Task<PriceAndTaxes> getWater(DateTime timeStamp)
         {
-            return await _priceAndTaxService.GetPriceAndTax(DateTime.Now, "water");
+            Console.WriteLine(DateTime.Now.ToString() + " - Get Water Price And Tax Called with timeStamp: " + timeStamp.ToString());
+            return await _priceAndTaxService.GetPriceAndTax(timeStamp, "water");
         }
 
         [HttpGet]
-        [Route("electricity")]
-        public async Task<PriceAndTax> getElectricity()
+        [Route("electricity/{timeStamp}")]
+        public async Task<PriceAndTaxes> getElectricity(DateTime timeStamp)
         {
-            return await _priceAndTaxService.GetPriceAndTax(DateTime.Now, "electricity");
+            Console.WriteLine(DateTime.Now.ToString() + " - Get Electricity Price And Tax Called with timeStamp: " + timeStamp.ToString());
+            return await _priceAndTaxService.GetPriceAndTax(timeStamp, "electricity");
         }
     }
 }

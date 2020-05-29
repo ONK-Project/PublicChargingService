@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Models;
+using System.Linq;
 
 namespace PublicChargingService.Service.PriceAndTaxService
 {
@@ -18,21 +19,21 @@ namespace PublicChargingService.Service.PriceAndTaxService
         {
             Configuration = configuration;
             _options = new DbContextOptionsBuilder<PriceAndTaxDbContext>()
-                .UseSqlServer(Configuration.GetConnectionString("??"))
+                .UseSqlServer(Configuration.GetConnectionString("F20ITONKASPNETServiceConnection"))
                 .Options;
         }
 
-        public async Task<PriceAndTax> GetPriceAndTax(DateTime timestamp, string type)
+        public async Task<PriceAndTaxes> GetPriceAndTax(DateTime timestamp, string type)
         {
             using (var context = new PriceAndTaxDbContext(_options))
             {
-                var princeAndTax = await context.PriceAndTaxes.FirstAsync(pnt => pnt.TimeStamp <= timestamp && pnt.Type == type);
-
-                return princeAndTax;
+                var priceAndTax = await context.PriceAndTaxes.Where(pnt => pnt.TimeStamp <= timestamp && pnt.Type == type).ToListAsync();
+                Console.WriteLine("PriceAndTax nearest to {" + timestamp.ToString() + "} is from {" + priceAndTax.Last().TimeStamp.ToString() + "}");
+                return priceAndTax.Last();
             }
         }
 
-        public async Task SavePriceAndTax(PriceAndTax priceAndTax)
+        public async Task SavePriceAndTax(PriceAndTaxes priceAndTax)
         {
             using (var context = new PriceAndTaxDbContext(_options))
             {
