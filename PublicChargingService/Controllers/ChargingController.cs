@@ -24,7 +24,7 @@ namespace PublicChargingService.Controllers
 
         [HttpGet]
         [Route("heat")]
-        public async Task<PriceAndTaxes> getHeat([FromQuery]DateTime dateTime)
+        public async Task<PriceAndTaxes> getHeat([FromQuery] DateTime dateTime)
         {
             Console.WriteLine(DateTime.Now.ToString() + " - Get Heat Price And Tax Called with timeStamp: " + dateTime.ToString());
             return await _priceAndTaxService.GetPriceAndTax(dateTime, "heat");
@@ -32,7 +32,7 @@ namespace PublicChargingService.Controllers
 
         [HttpGet]
         [Route("water")]
-        public async Task<PriceAndTaxes> getWater([FromQuery]DateTime dateTime)
+        public async Task<PriceAndTaxes> getWater([FromQuery] DateTime dateTime)
         {
             Console.WriteLine(DateTime.Now.ToString() + " - Get Water Price And Tax Called with timeStamp: " + dateTime.ToString());
             return await _priceAndTaxService.GetPriceAndTax(dateTime, "water");
@@ -40,7 +40,7 @@ namespace PublicChargingService.Controllers
 
         [HttpGet]
         [Route("electricity")]
-        public async Task<PriceAndTaxes> getElectricity([FromQuery]DateTime dateTime)
+        public async Task<PriceAndTaxes> getElectricity([FromQuery] DateTime dateTime)
         {
             Console.WriteLine(DateTime.Now.ToString() + " - Get Electricity Price And Tax Called with timeStamp: " + dateTime.ToString());
             return await _priceAndTaxService.GetPriceAndTax(dateTime, "electricity");
