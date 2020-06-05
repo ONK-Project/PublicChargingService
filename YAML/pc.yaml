@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: publiccharging
+  namespace: "proj-gr4"
+  labels:
+    app: publiccharging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: publiccharging
+  template:
+    metadata:
+      labels:
+        app: publiccharging
+    spec:
+      containers:
+      - name: publiccharging
+        image: 201608930/publicchargingservice:latest
+        resources:
+          requests:
+            memory: "4Mi"
+            cpu: "25m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: publiccharging
+  namespace: "proj-gr4"
+  labels:
+    app: publiccharging
+spec:
+  selector:
+    app: publiccharging
+  ports:
+    - port: 8080
+      targetPort: 80
+  type: LoadBalancer
